@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormFieldUi from "./FormField";
 import CustomButton from "./CustomButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { redirect } from "next/navigation";
 
 const verifyEmailSchema = z.object({
   email: z.string().email().min(1, { message: "Email is required" }),
@@ -43,7 +44,9 @@ const ForgotPasswordForm = () => {
     const finalData = { ...formData, ...data };
 
     console.log(finalData);
-    // Call your sign-up API here
+    // call the Api to verify the OTP
+
+    redirect("/forgot-password/reset");
   };
 
   const onNext = async (data: any) => {

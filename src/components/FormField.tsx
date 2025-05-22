@@ -120,27 +120,27 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
                 <InputOTPGroup className="flex gap-2 w-full">
                   <InputOTPSlot
                     index={0}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none !shadow-none !ring-0 outline-none border border-slate-300  p-4 h-11 w-full"
                   />
                   <InputOTPSlot
                     index={1}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none shadow-none border !ring-0 border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
                   />
                   <InputOTPSlot
                     index={2}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none shadow-none border !ring-0 border-slate-300  p-4 h-11 w-full"
                   />
                   <InputOTPSlot
                     index={3}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full !ring-0"
                   />
                   <InputOTPSlot
                     index={4}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full !ring-0"
                   />
                   <InputOTPSlot
                     index={5}
-                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full focus-visible:ring-1 focus-visible:ring-blue-400"
+                    className="!rounded-none shadow-none border border-slate-300  p-4 h-11 w-full !ring-0"
                   />
                 </InputOTPGroup>
               </InputOTP>
