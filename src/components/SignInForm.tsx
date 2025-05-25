@@ -6,23 +6,42 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import FormFieldUi from "./FormField";
 import CustomButton from "./CustomButton";
+import { useState } from "react";
 
 const SignInSchema = z.object({
-  username: z.string().min(1, { message: "Username is required" }),
-  password: z.string().min(1, { message: "Password is required" }),
+  email: z.string().min(1, { message: "email is required" }),
+  password: z
+    .string()
+    .min(8, { message: "The password must be 8 characters long" })
+    .regex(/(?=.*[a-z])/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/(?=.*[A-Z])/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/(?=.*[0-9])/, {
+      message: "Password must contain at least one number",
+    }),
 });
 
 const SignInForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     resolver: zodResolver(SignInSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
 
   const submitHandler = async (data: any) => {
     console.log(data);
+    setIsLoading(true);
+    // Simulate API call delay
+    setTimeout(() => {
+      alert("Sign-in successful!");
+      setIsLoading(false);
+    }, 2000); // Simulating API call delay
     // Call your sign-in API here
   };
   return (
@@ -30,7 +49,7 @@ const SignInForm = () => {
       <form onSubmit={form.handleSubmit(submitHandler)} className="space-y-6">
         <FormFieldUi
           form={form}
-          name="username"
+          name="email"
           label="Username or email address"
           type="text"
         />
@@ -41,7 +60,7 @@ const SignInForm = () => {
           type="password"
           forgotPassword
         />
-        <CustomButton textContext="Sign in" type="submit" />
+        <CustomButton textContext="Sign in" loading={isLoading} type="submit" />
       </form>
     </Form>
   );

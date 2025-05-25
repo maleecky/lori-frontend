@@ -3,7 +3,7 @@ import ResetPasswordForm from "@/components/ResetPasswordForm";
 import { ArrowLeft } from "lucide-react";
 import { redirect, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ResetPasswordPage = () => {
   const token = useSearchParams().get("token");

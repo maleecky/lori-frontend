@@ -27,6 +27,7 @@ const ForgotPasswordForm = () => {
   const [formData, setformData] = useState<
     Partial<z.infer<typeof ForgotPasswordSchema>>
   >({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailForm = useForm<verifyEmailData>({
     resolver: zodResolver(verifyEmailSchema),
@@ -85,7 +86,11 @@ const ForgotPasswordForm = () => {
               type="otp"
               description="Please enter the one-time password(OTP) sent to your email."
             />
-            <CustomButton textContext="Proceed" type="submit" />
+            <CustomButton
+              textContext="Proceed"
+              type="submit"
+              loading={isLoading}
+            />
             <div className="text-sm">
               If you didn't receive the OTP, please check your spam folder or{" "}
               <span

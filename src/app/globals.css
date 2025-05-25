@@ -121,3 +121,11 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 }
+
+.PhoneInputInput {
+  @apply h-full p-2 m-0;
+}
+
+.PhoneInputCountryIcon {
+  @apply w-5 h-5 ml-2;
+}

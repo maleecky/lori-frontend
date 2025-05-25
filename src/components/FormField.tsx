@@ -9,6 +9,10 @@ import {
 import { Input } from "./ui/input";
 import ForgotPassword from "./ForgotPassword";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import { Textarea } from "./ui/textarea";
+import { FileDropzone } from "./FileDropzone";
 
 interface FormFieldProps {
   form: UseFormReturn<any>;
@@ -18,6 +22,7 @@ interface FormFieldProps {
   forgotPassword?: boolean;
   description?: string;
   required?: boolean;
+  placeholder?: string;
 }
 
 interface InputProps {
@@ -29,9 +34,9 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
   switch (FieldProps.type) {
     case "text":
       return (
-        <FormItem>
+        <FormItem className="w-full">
           {FieldProps.label && (
-            <FormLabel className=" font-normal text-[#474747]">
+            <FormLabel className=" font-normal w-full text-[#474747]">
               {FieldProps.label}
               {FieldProps.required && <span className="text-red-500">*</span>}
             </FormLabel>
@@ -39,8 +44,9 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
           <FormControl>
             <Input
               {...field}
-              className="bg-white p-2 h-11 !shadow-none border border-slate-300  focus-visible:ring-1 focus-visible:ring-blue-400 "
+              className="bg-white text-sm p-2 h-11 !shadow-none border rounded border-slate-300  focus-visible:ring-1 focus-visible:ring-blue-400 "
               type={"text"}
+              placeholder={FieldProps.placeholder ? FieldProps.placeholder : ""}
             />
           </FormControl>
           <FormMessage />
@@ -62,8 +68,11 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
             <div className="space-y-2">
               <Input
                 {...field}
-                className="bg-white p-2 h-11 !shadow-none border border-slate-300  focus-visible:ring-1 focus-visible:ring-blue-400 "
+                className="bg-white p-2 h-11 !shadow-none border border-slate-300 rounded  focus-visible:ring-1 focus-visible:ring-blue-400 "
                 type={"password"}
+                placeholder={
+                  FieldProps.placeholder ? FieldProps.placeholder : ""
+                }
               />
               {FieldProps.description && (
                 <p className="text-[13px] text-[#5c5c5c]">
@@ -77,8 +86,8 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
       );
     case "email":
       return (
-        <FormItem>
-          <div className="flex justify-between">
+        <FormItem className="w-full">
+          <div className="flex justify-between w-full">
             {FieldProps.label && (
               <FormLabel className=" font-normal text-[#474747]">
                 {FieldProps.label}
@@ -90,8 +99,11 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
             <div className="space-y-2">
               <Input
                 {...field}
-                className="bg-white p-2 h-11 !shadow-none border border-slate-300  focus-visible:ring-1 focus-visible:ring-blue-400 "
+                className="bg-white text-sm p-2 h-11 !shadow-none border border-slate-300 rounded  focus-visible:ring-1 focus-visible:ring-blue-400 "
                 type={"email"}
+                placeholder={
+                  FieldProps.placeholder ? FieldProps.placeholder : ""
+                }
               />
               {FieldProps.description && (
                 <p className="text-[13px] text-[#5c5c5c]">
@@ -154,6 +166,72 @@ const RenderInput = ({ field, FieldProps }: InputProps) => {
           <FormMessage />
         </FormItem>
       );
+    case "phone":
+      return (
+        <FormItem className="w-full flex flex-col">
+          <div className="flex justify-between">
+            {FieldProps.label && (
+              <FormLabel className=" font-normal text-[#474747]">
+                {FieldProps.label}
+                {FieldProps.required && <span className="text-red-500">*</span>}
+              </FormLabel>
+            )}
+          </div>
+          <FormControl>
+            <PhoneInput
+              placeholder={FieldProps.placeholder ? FieldProps.placeholder : ""}
+              {...field}
+              defaultCountry="TZ"
+              international
+              className="bg-white text-sm  h-11 !shadow-none border border-slate-300 rounded  focus-visible:ring-1 focus-visible:ring-blue-400"
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      );
+    case "textarea":
+      return (
+        <FormItem className="w-full flex flex-col">
+          <div className="flex justify-between">
+            {FieldProps.label && (
+              <FormLabel className=" font-normal text-[#474747]">
+                {FieldProps.label}
+                {FieldProps.required && <span className="text-red-500">*</span>}
+              </FormLabel>
+            )}
+          </div>
+          <FormControl>
+            <Textarea
+              placeholder="Tell us a little bit about business"
+              className="resize-none bg-white p-2 h-28 text-sm !shadow-none border border-slate-300 rounded  focus-visible:ring-1 focus-visible:ring-blue-400 "
+              {...field}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      );
+    case "file":
+      return (
+        <FormItem className="w-full flex flex-col">
+          <div className="flex justify-between">
+            {FieldProps.label && (
+              <FormLabel className=" font-normal text-[#474747]">
+                {FieldProps.label}
+                {FieldProps.required && <span className="text-red-500">*</span>}
+              </FormLabel>
+            )}
+          </div>
+          <FormControl>
+            <FileDropzone
+              value={field.value}
+              onRemove={() => field.onChange([])}
+              onDrop={(files) => field.onChange(files)}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      );
+
     default:
       return;
   }

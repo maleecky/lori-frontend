@@ -7,6 +7,7 @@ import * as z from "zod";
 import FormFieldUi from "./FormField";
 import CustomButton from "./CustomButton";
 import { redirect } from "next/navigation";
+import { useState } from "react";
 
 const resetPasswordSchema = z
   .object({
@@ -43,6 +44,7 @@ const resetPasswordSchema = z
 type resetPasswordType = z.infer<typeof resetPasswordSchema>;
 
 const ResetPasswordForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<resetPasswordType>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: { password: "", confirmPassword: "" },
@@ -75,7 +77,11 @@ const ResetPasswordForm = () => {
           type="password"
           description="Please confirm your new password."
         />
-        <CustomButton textContext="Reset Password" type="submit" />
+        <CustomButton
+          textContext="Reset Password"
+          loading={isLoading}
+          type="submit"
+        />
       </form>
     </Form>
   );
